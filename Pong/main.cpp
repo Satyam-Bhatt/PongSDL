@@ -72,7 +72,19 @@ bool init()
 
 	return success;
 }
-void close();
+void close()
+{
+	//Destroy windows
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	window = NULL;
+	renderer = NULL;
+
+	//Quit SDL subsystems
+	TTF_Quit();
+	IMG_Quit();
+	SDL_Quit();
+}
 void setNextState(GameState* state);
 void changeState();
 
