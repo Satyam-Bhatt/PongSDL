@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "GameState.h"
+#include "IntroState.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
@@ -85,10 +86,57 @@ void close()
 	IMG_Quit();
 	SDL_Quit();
 }
-void setNextState(GameState* state);
-void changeState();
+void setNextState(GameState* state)
+{
+	nextstate = state;
+}
+void changeState()
+{
+	if (nextstate != NULL)
+	{
+		currentState->exit();
+		currentState = nextstate;
+		currentState->start();
+		nextstate = NULL;
+	}
+}
 
 int main(int argc, char* args[])
 {
+	if(!init())
+	{
+		printf("Failed to initialize!\n");
+	}
+	else
+	{
+		SDL_Event e;
+		bool quit = false;
+
+		currentState = IntroState::getIntroState();
+		
+		while (!quit)
+		{
+			if(SDL_PollEvent(&e) != 0)
+			{
+				if (e.type == SDL_QUIT)
+				{
+					quit = true;
+				}
+				currentState->handleInput(e);
+			}
+			currentState->update();
+
+			//Clear Screen
+			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+			SDL_RenderClear(renderer);
+
+			currentState->render();
+
+			SDL_RenderPresent(renderer);
+
+			changeState();
+		}
+	}
+
 	return 0;
 }
