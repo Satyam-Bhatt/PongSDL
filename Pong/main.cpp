@@ -96,7 +96,7 @@ void changeState()
 	{
 		currentState->exit();
 		currentState = nextstate;
-		currentState->start();
+		currentState->start(renderer);
 		nextstate = NULL;
 	}
 }
@@ -113,6 +113,7 @@ int main(int argc, char* args[])
 		bool quit = false;
 
 		currentState = IntroState::getIntroState();
+		currentState->start(renderer);
 		
 		while (!quit)
 		{
@@ -130,7 +131,7 @@ int main(int argc, char* args[])
 			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 			SDL_RenderClear(renderer);
 
-			currentState->render();
+			currentState->render(renderer);
 
 			SDL_RenderPresent(renderer);
 

@@ -7,9 +7,9 @@ class PlayState :
 	public GameState
 {
 public:
-	void start();
+	void start(SDL_Renderer* renderer);
 	void update();
-	void render();
+	void render(SDL_Renderer* renderer);
 	void handleInput(SDL_Event e);
 	void exit();
 

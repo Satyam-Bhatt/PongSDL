@@ -3,17 +3,22 @@
 
 IntroState IntroState::instance;
 
-void IntroState::start()
+void IntroState::start(SDL_Renderer* renderer)
 {
+	if (!testTex.LoadFromFile("Images/texture.png", renderer))
+	{
+		printf("Failed to load texture!\n");
+	}
 }
 
 void IntroState::update()
 {
-	printf("Intro\n");
+	
 }
 
-void IntroState::render()
+void IntroState::render(SDL_Renderer* renderer)
 {
+	testTex.Render(0, 0, renderer);
 }
 
 void IntroState::handleInput(SDL_Event e)
@@ -24,6 +29,7 @@ void IntroState::handleInput(SDL_Event e)
 
 void IntroState::exit()
 {
+	testTex.Free();
 }
 
 IntroState* IntroState::getIntroState()

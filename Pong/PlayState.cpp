@@ -3,7 +3,7 @@
 
 PlayState PlayState::instance;
 
-void PlayState::start()
+void PlayState::start(SDL_Renderer* renderer)
 {
 }
 
@@ -12,7 +12,7 @@ void PlayState::update()
 	printf("Play\n");
 }
 
-void PlayState::render()
+void PlayState::render(SDL_Renderer* renderer)
 {
 }
 
