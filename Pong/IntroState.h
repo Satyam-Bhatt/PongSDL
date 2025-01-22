@@ -1,5 +1,7 @@
 #pragma once
 #include "GameState.h"
+#include "Button.h"
+
 class PlayState;
 
 extern void setNextState(GameState* state);
@@ -19,5 +21,6 @@ public:
 private:
 	static IntroState instance;
 	Texture testTex;
+	Button button = Button(0, 0, 0, 0);
 };
 
