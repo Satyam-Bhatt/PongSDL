@@ -128,7 +128,7 @@ int main(int argc, char* args[])
 			currentState->update();
 
 			//Clear Screen
-			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0 ,255);
 			SDL_RenderClear(renderer);
 
 			currentState->render(renderer);
