@@ -18,9 +18,6 @@ public:
 	//Static Accessor
 	static IntroState* getIntroState();
 
-	//ButtonFunction
-	void buttonFunction();
-
 private:
 	static IntroState instance;
 	Texture testTex;
