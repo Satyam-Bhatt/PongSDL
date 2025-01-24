@@ -1,10 +1,12 @@
 #include "Button.h"
 #include <stdio.h>
 
-Button::Button(int x, int y, int w, int h)
+Button::Button(int x, int y, int w, int h, SDL_Color _color, void(*actionToPerform)())
 {
 	button_Rect = { x, y, w, h };
-	color = { 255, 255, 255, 255 };
+	colorStored = _color;
+	color = _color;
+	buttonFunction = actionToPerform;
 }
 
 void Button::HandleEvents(SDL_Event* e)
@@ -27,20 +29,21 @@ void Button::HandleEvents(SDL_Event* e)
 
 		if (!inside)
 		{
-			color = { 255, 255, 255, 255 };
+			color = colorStored;
 		}
 		else
 		{
 			switch (e->type)
 			{
 			case SDL_MOUSEMOTION:
-				color = { 200, 200, 200, 255 };
+				color = { Uint8(colorStored.r * 0.9), Uint8(colorStored.g * 0.9), Uint8(colorStored.b * 0.9), 255};
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				color = { 150, 150, 150, 255 };
+				color = { Uint8(colorStored.r * 0.7), Uint8(colorStored.g * 0.7), Uint8(colorStored.b * 0.7), 255 };
 				break;
 			case SDL_MOUSEBUTTONUP:
-				color = { 200, 200, 200, 255 };
+				color = { Uint8(colorStored.r * 0.9), Uint8(colorStored.g * 0.9), Uint8(colorStored.b * 0.9), 255 };
+				buttonFunction();
 				break;
 			}
 		}

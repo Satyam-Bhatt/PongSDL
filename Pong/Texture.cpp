@@ -93,7 +93,7 @@ bool Texture::LoadText(TTF_Font* font, std::string fontPath, std::string text, S
 		SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
 		if (textSurface == NULL)
 		{
-			printf("Unable to render text surface! SDL_ttf Error: &s/n", TTF_GetError());
+			printf("Unable to render text surface! SDL_ttf Error: &s\n", TTF_GetError());
 			success = false;
 		}
 		else

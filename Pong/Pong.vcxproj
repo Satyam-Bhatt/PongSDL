@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CommonVariables.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IntroState.h" />
     <ClInclude Include="PlayState.h" />

@@ -4,9 +4,7 @@
 #include <SDL_ttf.h>
 #include "GameState.h"
 #include "IntroState.h"
-
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+#include "CommonVariables.h"
 
 GameState* currentState = NULL;
 GameState* nextstate = NULL;

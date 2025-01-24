@@ -18,9 +18,14 @@ public:
 	//Static Accessor
 	static IntroState* getIntroState();
 
+	//ButtonFunction
+	void buttonFunction();
+
 private:
 	static IntroState instance;
 	Texture testTex;
-	Button button = Button(0, 0, 0, 0);
+	Button button = Button(0, 0, 0, 0, {0,0,0,0}, []() { printf("Button Pressed\n"); });
+	Texture buttonText;
+	TTF_Font* font = NULL;
 };
 

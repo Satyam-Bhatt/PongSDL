@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <stdio.h>
 #include "Texture.h"
+#include "CommonVariables.h"
 
 class GameState
 {
