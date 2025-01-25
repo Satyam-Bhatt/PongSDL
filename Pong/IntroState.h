@@ -14,6 +14,7 @@ public:
 	void render(SDL_Renderer* renderer);
 	void handleInput(SDL_Event e);
 	void exit();
+	void playButtonFunction();
 
 	//Static Accessor
 	static IntroState* getIntroState();

@@ -1,12 +1,12 @@
 #include "Button.h"
 #include <stdio.h>
 
-Button::Button(int x, int y, int w, int h, SDL_Color _color, void(*actionToPerform)())
+Button::Button(int x, int y, int w, int h, SDL_Color _color, std::function<void()> OnClickFunction)
 {
 	button_Rect = { x, y, w, h };
 	colorStored = _color;
 	color = _color;
-	buttonFunction = actionToPerform;
+	buttonFunction = OnClickFunction;
 }
 
 void Button::HandleEvents(SDL_Event* e)

@@ -1,12 +1,13 @@
 #pragma once
 #include <SDL.h>
+#include <functional>
 
 class Button
 {
-	typedef void(*ButtonFunction)();
+	typedef std::function<void()> ButtonFunction;
 
 public:
-	Button(int x, int y, int w, int h, SDL_Color _color, void(*actionToPerform)());
+	Button(int x, int y, int w, int h, SDL_Color _color, std::function<void()> OnClickFunction);
 
 	void Render(SDL_Renderer* renderer);
 	void HandleEvents(SDL_Event* e);

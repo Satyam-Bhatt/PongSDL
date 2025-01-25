@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "Texture.h"
 #include "CommonVariables.h"
+#include <functional>
 
 class GameState
 {
