@@ -11,6 +11,7 @@ GameState* nextstate = NULL;
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
+
 bool init()
 {
 	//Initialization flag
@@ -31,7 +32,7 @@ bool init()
 		}
 
 		//Create window
-		window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 		if (window == NULL)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());

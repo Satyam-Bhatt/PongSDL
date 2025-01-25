@@ -24,7 +24,7 @@ void IntroState::update()
 
 void IntroState::render(SDL_Renderer* renderer)
 {
-	//testTex.Render(0, 0, renderer);
+	testTex.Render(0, 0, renderer);
 	button.Render(renderer);
 	buttonText.Render(SCREEN_WIDTH / 2 - buttonText.GetWidth() / 2, SCREEN_HEIGHT / 2 - buttonText.GetHeight() / 2, renderer);
 }

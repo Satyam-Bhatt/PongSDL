@@ -42,7 +42,7 @@ void Button::HandleEvents(SDL_Event* e)
 				color = { Uint8(colorStored.r * 0.7), Uint8(colorStored.g * 0.7), Uint8(colorStored.b * 0.7), 255 };
 				break;
 			case SDL_MOUSEBUTTONUP:
-				color = { Uint8(colorStored.r * 0.9), Uint8(colorStored.g * 0.9), Uint8(colorStored.b * 0.9), 255 };
+				color = { Uint8(colorStored.r * 0.5), Uint8(colorStored.g * 0.5), Uint8(colorStored.b * 0.5), 255 };
 				buttonFunction();
 				break;
 			}
