@@ -5,12 +5,15 @@
 #include "GameState.h"
 #include "IntroState.h"
 #include "CommonVariables.h"
+#include "ScreenSizeManager.h"
 
 GameState* currentState = NULL;
 GameState* nextstate = NULL;
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
+int widht = 640;
+int height = 480;
 
 bool init()
 {
@@ -32,7 +35,7 @@ bool init()
 		}
 
 		//Create window
-		window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+		window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, widht, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 		if (window == NULL)
 		{
 			printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -99,6 +102,14 @@ void changeState()
 		nextstate = NULL;
 	}
 }
+int GetWidth()
+{
+	return widht;
+}
+int GetHeight()
+{
+	return height;
+}
 
 int main(int argc, char* args[])
 {
@@ -123,6 +134,7 @@ int main(int argc, char* args[])
 					quit = true;
 				}
 				currentState->handleInput(e);
+				ScreenSizeManager::getInstance().HandleEvents(e);
 			}
 			currentState->update();
 
