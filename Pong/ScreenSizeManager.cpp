@@ -23,7 +23,15 @@ int ScreenSizeManager::GetWidth() const
 
 void ScreenSizeManager::HandleEvents(SDL_Event e)
 {
-	printf("yoyo");
+	if (e.type == SDL_WINDOWEVENT)
+	{
+		switch (e.window.event)
+		{
+			case SDL_WINDOWEVENT_RESIZED:
+				width = e.window.data1;
+				height = e.window.data2;
+		}
+	}
 }
 
 ScreenSizeManager& ScreenSizeManager::getInstance()

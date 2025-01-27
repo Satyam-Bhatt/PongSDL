@@ -73,6 +73,19 @@ void Texture::Render(int x, int y, SDL_Renderer* renderer, SDL_Rect* clip)
 	}
 }
 
+void Texture::RenderFullScreen(SDL_Renderer* renderer, SDL_Rect* clip)
+{
+	if (texture != NULL)
+	{
+		int widthFullScreen = ScreenSizeManager::getInstance().GetWidth();
+		int heightFullScreen = ScreenSizeManager::getInstance().GetHeight();
+
+		SDL_Rect renderQuad = { 0, 0, widthFullScreen, heightFullScreen };
+
+		SDL_RenderCopy(renderer, texture, clip, &renderQuad);
+	}
+}
+
 bool Texture::LoadText(TTF_Font* font, std::string fontPath, std::string text, SDL_Color textColor, int fontSize, SDL_Renderer* renderer)
 {
 	bool success = true;

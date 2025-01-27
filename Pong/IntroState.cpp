@@ -9,7 +9,7 @@ void IntroState::start(SDL_Renderer* renderer)
 	{
 		printf("Failed to load texture!\n");
 	}
-	button = Button(SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 50, 200, 100, { 255,0,0,255 }, [this]() { this->playButtonFunction(); });
+	button = Button({ 255,0,0,255 }, [this]() { this->playButtonFunction(); });
 
 	if(!buttonText.LoadText(font, "Fonts/Star Shield.ttf", "PLAY", { 0, 255, 0 }, 32, renderer))
 	{
@@ -24,9 +24,11 @@ void IntroState::update()
 
 void IntroState::render(SDL_Renderer* renderer)
 {
-	testTex.Render(0, 0, renderer);
-	button.Render(renderer);
-	buttonText.Render(SCREEN_WIDTH / 2 - buttonText.GetWidth() / 2, SCREEN_HEIGHT / 2 - buttonText.GetHeight() / 2, renderer);
+	testTex.RenderFullScreen(renderer);
+
+	SDL_Rect button_Rect = {ScreenSizeManager::getInstance().GetWidth() / 2 - 200 / 2, ScreenSizeManager::getInstance().GetHeight() / 2 - 100 / 2, 200, 100};
+	button.Render(button_Rect ,renderer);
+	buttonText.Render(ScreenSizeManager::getInstance().GetWidth() / 2 - buttonText.GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2 - buttonText.GetHeight() / 2, renderer);
 }
 
 void IntroState::handleInput(SDL_Event e)

@@ -7,9 +7,8 @@ class Button
 	typedef std::function<void()> ButtonFunction;
 
 public:
-	Button(int x, int y, int w, int h, SDL_Color _color, std::function<void()> OnClickFunction);
-
-	void Render(SDL_Renderer* renderer);
+	Button(SDL_Color _color, std::function<void()> OnClickFunction);
+	void Render(SDL_Rect& button_Dimension, SDL_Renderer* renderer);
 	void HandleEvents(SDL_Event* e);
 
 private:
