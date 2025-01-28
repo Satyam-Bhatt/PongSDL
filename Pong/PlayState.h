@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "Paddle.h"
 
 class IntroState;
 
@@ -7,6 +8,7 @@ class PlayState :
 	public GameState
 {
 public:
+	PlayState();
 	void start(SDL_Renderer* renderer);
 	void update();
 	void render(SDL_Renderer* renderer);
@@ -18,5 +20,6 @@ public:
 
 private:
 	static PlayState instance;
+	Paddle paddle1;
 };
 
