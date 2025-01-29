@@ -132,17 +132,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="IntroState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="ScreenSizeManager.cpp" />
+    <ClCompile Include="Test.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="CommonVariables.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IntroState.h" />
+    <ClInclude Include="Paddle.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="ScreenSizeManager.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

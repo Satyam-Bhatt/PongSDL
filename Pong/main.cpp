@@ -6,6 +6,7 @@
 #include "IntroState.h"
 #include "CommonVariables.h"
 #include "ScreenSizeManager.h"
+#include "Timer.h"
 
 GameState* currentState = NULL;
 GameState* nextstate = NULL;
@@ -125,6 +126,9 @@ int main(int argc, char* args[])
 				currentState->handleInput(e);
 				ScreenSizeManager::getInstance().HandleEvents(e);
 			}
+			//For deltaTime
+			Timer::getInstance().start();
+
 			currentState->update();
 
 			//Clear Screen
