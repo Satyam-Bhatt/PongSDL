@@ -5,7 +5,7 @@ class Paddle
 {
 public:
 
-	static const int PADDLE_VELOCITY = 10;
+	static const int PADDLE_VELOCITY = 500;
 
 	Paddle(int _posX = 0, int _posY = 0, int _width = 0, int _height = 0);
 	~Paddle();

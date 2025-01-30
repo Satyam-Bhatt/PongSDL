@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "Paddle.h"
+#include "Ball.h"
 
 class IntroState;
 
@@ -21,5 +22,7 @@ public:
 private:
 	static PlayState instance;
 	Paddle paddle1;
+	Paddle paddle2;
+	Ball ball;
 };
 

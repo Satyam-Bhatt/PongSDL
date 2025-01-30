@@ -1,5 +1,7 @@
 #include "Paddle.h"
 #include <stdio.h>
+#include "Timer.h"
+#include "ScreenSizeManager.h"
 
 Paddle::Paddle(int _posX, int _posY, int _width, int _height)
 {
@@ -23,24 +25,18 @@ void Paddle::Close()
 
 void Paddle::Update()
 {
-	posY += velocity;
+	posY += velocity * Timer::getInstance().GetDeltaTime();
+
+	if (posY > ScreenSizeManager::getInstance().GetHeight() - paddleRect.h)
+	{
+		posY = ScreenSizeManager::getInstance().GetHeight() - paddleRect.h;
+	}
+	else if(posY < 0)
+	{
+		posY = 0;
+	}
 
 	paddleRect = { posX, posY, paddleRect.w, paddleRect.h };
-}
-
-SDL_Rect Paddle::GetRect()
-{
-	return paddleRect;
-}
-
-int Paddle::GetX()
-{
-	return posX;
-}
-
-int Paddle::GetY()
-{
-	return posY;
 }
 
 void Paddle::HandleEvents(SDL_Event e)
@@ -75,4 +71,19 @@ void Paddle::Render(SDL_Renderer* renderer)
 {
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &paddleRect);
+}
+
+SDL_Rect Paddle::GetRect()
+{
+	return paddleRect;
+}
+
+int Paddle::GetX()
+{
+	return posX;
+}
+
+int Paddle::GetY()
+{
+	return posY;
 }
