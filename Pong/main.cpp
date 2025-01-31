@@ -117,6 +117,9 @@ int main(int argc, char* args[])
 		
 		while (!quit)
 		{
+			//For deltaTime
+			Timer::getInstance().tick();
+
 			if(SDL_PollEvent(&e) != 0)
 			{
 				if (e.type == SDL_QUIT)
@@ -126,8 +129,6 @@ int main(int argc, char* args[])
 				currentState->handleInput(e);
 				ScreenSizeManager::getInstance().HandleEvents(e);
 			}
-			//For deltaTime
-			Timer::getInstance().start();
 
 			currentState->update();
 

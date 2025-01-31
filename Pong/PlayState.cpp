@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "IntroState.h"
-#include <iostream>
+#include "CollisionDetection.h"
+#include <stdio.h>
 
 PlayState PlayState::instance;
 
@@ -24,6 +25,8 @@ void PlayState::update()
 	paddle1.Update();
 	paddle2.Update();
 	ball.Update();
+
+	ball.CollidedWithPaddle(paddle1.GetRect(), paddle2.GetRect());
 }
 
 void PlayState::render(SDL_Renderer* renderer)
@@ -37,6 +40,7 @@ void PlayState::handleInput(SDL_Event e)
 {
 	paddle1.HandleEvents(e);
 	paddle2.HandleEvents(e);
+	ball.HandleEvents(e);
 
 	if (e.type == SDL_WINDOWEVENT)
 	{

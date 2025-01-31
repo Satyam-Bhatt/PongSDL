@@ -16,12 +16,14 @@ public:
 	void Update();
 	void HandleEvents(SDL_Event e);
 	void Close();
+	void CollidedWithPaddle(SDL_Rect paddle1, SDL_Rect paddle2);
 	SDL_Rect GetBallRect();
 	int GetX();
 	int GetY();
 
 private:
-	int posX, posY, velocityX, velocityY;
+	float posX, posY;
+	int velocityX, velocityY;
 	SDL_Rect ballRect;
 };
 

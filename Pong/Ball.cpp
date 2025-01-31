@@ -1,10 +1,14 @@
 #include "Ball.h"
+#include "CollisionDetection.h"
+#include <stdio.h>
 
 Ball::Ball(int posX, int posY)
 {
 	this->posX = posX;
 	this->posY = posY;
 	ballRect = { posX, posY, BALL_RADIUS, BALL_RADIUS };
+	velocityX = 0;
+	velocityY = 0;
 }
 
 void Ball::Start()
@@ -15,10 +19,11 @@ void Ball::Start()
 
 void Ball::Update()
 {
-	posX += velocityX * Timer::getInstance().GetDeltaTime();
-	posY += velocityY * Timer::getInstance().GetDeltaTime();
+	float dt = Timer::getInstance().GetDeltaTime();
+	posX += velocityX * dt;
+	posY += velocityY * dt;
 
-	ballRect = {posX, posY, BALL_RADIUS, BALL_RADIUS};
+	ballRect = { (int)posX, (int)posY, BALL_RADIUS, BALL_RADIUS };
 }
 
 void Ball::Render(SDL_Renderer* renderer)
@@ -29,7 +34,16 @@ void Ball::Render(SDL_Renderer* renderer)
 
 void Ball::HandleEvents(SDL_Event e)
 {
-
+	if (e.type == SDL_KEYDOWN)
+	{
+		switch (e.key.keysym.sym)
+		{
+		case SDLK_p:
+			printf("Paused\n");
+			velocityX = - velocityX;
+			break;
+		}
+	}
 }
 
 void Ball::Close()
@@ -37,6 +51,14 @@ void Ball::Close()
 	posX = 0;
 	posY = 0;
 	ballRect = { 0, 0, 0, 0 };
+}
+
+void Ball::CollidedWithPaddle(SDL_Rect paddle1, SDL_Rect paddle2)
+{
+	if (CollisionDetection::GetInstance().CheckCollision(ballRect, paddle1) || CollisionDetection::GetInstance().CheckCollision(ballRect, paddle2))
+	{
+		velocityX = -velocityX;
+	}
 }
 
 SDL_Rect Ball::GetBallRect()

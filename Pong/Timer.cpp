@@ -5,7 +5,7 @@ float Timer::deltaTicks = 0.0;
 
 Timer::Timer()
 {
-	startTicks = 0;
+	lastFrameTime = SDL_GetTicks();
 }
 
 Timer& Timer::getInstance()
@@ -14,18 +14,18 @@ Timer& Timer::getInstance()
 	return instance;
 }
 
-void Timer::start()
+void Timer::tick()
 {
-	deltaTicks = (SDL_GetTicks() - startTicks) / 1000.0f;
-	startTicks = SDL_GetTicks();
+	deltaTicks = (SDL_GetTicks() - lastFrameTime) / 1000.0f;
+	lastFrameTime = SDL_GetTicks();
 }
 
 void Timer::stop()
 {
-	startTicks = 0;
+	lastFrameTime = 0;
 }
 
-float Timer::GetDeltaTime()
+float Timer::GetDeltaTime() const
 {
 	return deltaTicks;
 }

@@ -5,14 +5,14 @@ class Timer
 {
 public:
 	static Timer& getInstance();
-	void start();
+	void tick();
 	void stop();
 
-	float GetDeltaTime();
+	float GetDeltaTime() const;
 
 private:
 	Timer();
-	Uint32 startTicks;
+	Uint32 lastFrameTime;
 	static float deltaTicks;
 };
 
