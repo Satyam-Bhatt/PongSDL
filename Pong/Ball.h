@@ -13,17 +13,19 @@ public:
 
 	void Start();
 	void Render(SDL_Renderer* renderer);
-	void Update();
+	void Update(SDL_Rect paddle1, SDL_Rect paddle2);
 	void HandleEvents(SDL_Event e);
 	void Close();
-	void CollidedWithPaddle(SDL_Rect paddle1, SDL_Rect paddle2);
+	float NormalizeDirection(float velocityX, float velocityY);
+	float ReflectedAngle(float directionX, float directionY);
 	SDL_Rect GetBallRect();
 	int GetX();
 	int GetY();
 
 private:
 	float posX, posY;
-	int velocityX, velocityY;
+	int velocity;
+	float dirX, dirY;
 	SDL_Rect ballRect;
 };
 

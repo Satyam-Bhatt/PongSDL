@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <functional>
+#include <math.h>
 
 typedef void(*FunctionPointer)(int a);
 
@@ -40,6 +41,18 @@ void Heloo2(int a, int b)
 {
 	printf("Heloo %d\n", a + b);
 }
+
+class matrix2x2
+{
+public:
+    float m[2][2];
+
+    matrix2x2()
+    {
+        m[0][0] = 1; m[0][1] = 0;
+        m[1][0] = 0; m[1][1] = 1;
+    }
+};
 
 //int main() {
 //
