@@ -4,6 +4,7 @@
 #include "Ball.h"
 
 class IntroState;
+extern void setNextState(GameState* state);
 
 class PlayState :
 	public GameState

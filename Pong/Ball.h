@@ -16,6 +16,7 @@ public:
 	void Update(SDL_Rect paddle1, SDL_Rect paddle2);
 	void HandleEvents(SDL_Event e);
 	void Close();
+	void Reset();
 	float NormalizeDirection(float velocityX, float velocityY);
 	float ReflectedAngle(float directionX, float directionY);
 	SDL_Rect GetBallRect();
@@ -26,6 +27,7 @@ private:
 	float posX, posY;
 	int velocity;
 	float dirX, dirY;
+	bool reset;
 	SDL_Rect ballRect;
 };
 

@@ -12,17 +12,24 @@ Ball::Ball(int posX, int posY)
 	velocity = 0;
 	dirX = 0;
 	dirY = 0;
+	reset = true;
 }
 
 void Ball::Start()
 {
+	srand(SDL_GetTicks());
+
 	velocity = BALL_SPEED;
-	dirX = 1;
-	dirY = 1;
+	dirX = 0;
+	dirY = 0;
+
+	printf("posX: %f || posY: %f", posX, posY);
 }
 
 void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 {
+	if (dirX == 0 && dirY == 0) return;
+
 	float dt = Timer::getInstance().GetDeltaTime();
 	float normalizedDirection = NormalizeDirection(dirX, dirY);
 	posX += dirX/normalizedDirection * velocity * dt;
@@ -75,6 +82,15 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 	}
 
 	ballRect = { (int)posX, (int)posY, BALL_RADIUS, BALL_RADIUS };
+
+	if(posX < -1)
+	{
+		Reset();
+	}
+	else if(posX > ScreenSizeManager::getInstance().GetWidth() + 1)
+	{
+		Reset();
+	}
 }
 
 void Ball::Render(SDL_Renderer* renderer)
@@ -85,6 +101,21 @@ void Ball::Render(SDL_Renderer* renderer)
 
 void Ball::HandleEvents(SDL_Event e)
 {
+	if (e.type == SDL_KEYDOWN)
+	{
+		switch (e.key.keysym.sym)
+		{
+		case SDLK_SPACE:
+			if (reset == true)
+			{
+				float angle = static_cast<float>((rand() % 360) * M_PI / 180.0);
+				dirX = cos(angle);
+				dirY = sin(angle);
+				reset = false;
+			}
+			break;
+		}
+	}
 }
 
 void Ball::Close()
@@ -92,6 +123,16 @@ void Ball::Close()
 	posX = 0;
 	posY = 0;
 	ballRect = { 0, 0, 0, 0 };
+}
+
+void Ball::Reset()
+{
+	reset = true;
+	dirX = 0;
+	dirY = 0;
+	posX = ScreenSizeManager::getInstance().GetWidth() / 2;
+	posY = ScreenSizeManager::getInstance().GetHeight() / 2;
+	ballRect = {(int)posX, (int)posY, BALL_RADIUS, BALL_RADIUS };
 }
 
 float Ball::NormalizeDirection(float directionX, float directionY)
