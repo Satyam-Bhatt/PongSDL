@@ -54,6 +54,7 @@ public:
     }
 };
 
+//Function Pointer
 //int main() {
 //
 //	lg_Un a = 2;
@@ -64,6 +65,42 @@ public:
 //	SecondClass secondClass;
 //
 //	secondClass.GetMehodFromOtherClass([&myClass](int a) {myClass.DoSomethin(a);});
+//
+//	return 0;
+//}
+
+class Base
+{
+public:
+	virtual ~Base() {}
+};
+
+class Derived : public Base
+{
+public:
+	~Derived() {}
+};
+
+class Derived2 : public Base
+{
+public:
+	~Derived2() {}
+};
+
+//int main() {
+//
+//	Derived* d = new Derived();
+//	Base* b = d;
+//
+//	Derived * d2 = dynamic_cast<Derived*>(d);
+//	if (d2 == NULL)
+//	{
+//		printf("NULL not possible\n");
+//	}
+//	else
+//	{
+//		printf("Success\n");
+//	}
 //
 //	return 0;
 //}

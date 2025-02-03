@@ -22,6 +22,7 @@ public:
 	SDL_Rect GetBallRect();
 	int GetX();
 	int GetY();
+	bool GetReset();
 
 private:
 	float posX, posY;

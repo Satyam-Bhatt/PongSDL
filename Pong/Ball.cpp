@@ -161,3 +161,8 @@ int Ball::GetY()
 {
 	return posY;
 }
+
+bool Ball::GetReset()
+{
+	return reset;
+}

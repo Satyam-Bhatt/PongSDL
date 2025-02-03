@@ -25,5 +25,7 @@ private:
 	Paddle paddle1;
 	Paddle paddle2;
 	Ball ball;
+	Texture playInstructions;
+	TTF_Font* font;
 };
 
