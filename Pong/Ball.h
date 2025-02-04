@@ -28,7 +28,7 @@ private:
 	float posX, posY;
 	int velocity;
 	float dirX, dirY;
-	bool reset;
+	bool reset, paddleMoving;
 	SDL_Rect ballRect;
 };
 

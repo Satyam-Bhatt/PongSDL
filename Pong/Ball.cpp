@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <cmath>
 #include "ScreenSizeManager.h"
+#include <iostream>
 
 Ball::Ball(int posX, int posY)
 {
@@ -13,6 +14,7 @@ Ball::Ball(int posX, int posY)
 	dirX = 0;
 	dirY = 0;
 	reset = true;
+	paddleMoving = false;
 }
 
 void Ball::Start()
@@ -43,11 +45,12 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 
 		if (ballRect.x + BALL_RADIUS - 1 > paddle2.x || ballRect.x  + 1 < paddle1.x + paddle1.w)
 		{
+			if (paddleMoving) velocity = 200 + 100;
 			float reflectedAngele = ReflectedAngle(dirX / normalizedDirection, dirY / normalizedDirection);
 			dirX = -cos(reflectedAngele);
 			dirY = -sin(reflectedAngele);
-			posX += dirX * velocity * dt;
-			posY += dirY * velocity * dt;
+			posX += dirX * velocity * dt * 100;
+			posY += dirY * velocity * dt * 100;
 		}
 		else
 		{
@@ -111,11 +114,28 @@ void Ball::HandleEvents(SDL_Event e)
 				float angle = static_cast<float>((rand() % 360) * M_PI / 180.0);
 				dirX = cos(angle);
 				dirY = sin(angle);
+				velocity = BALL_SPEED;
 				reset = false;
 			}
 			break;
+
+		case SDLK_UP:
+			paddleMoving = true;
+			break;
+
+		case SDLK_DOWN:
+			paddleMoving = true;
+			break;
 		}
 	}
+	if (e.type == SDL_KEYUP)
+	{
+		if(e.key.keysym.sym == SDLK_UP || e.key.keysym.sym == SDLK_DOWN)
+		{
+			paddleMoving = false;
+		}
+	}
+
 }
 
 void Ball::Close()
