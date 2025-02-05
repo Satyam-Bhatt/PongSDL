@@ -39,25 +39,36 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 
 	if (CollisionDetection::GetInstance().CheckCollision(ballRect, paddle1) || CollisionDetection::GetInstance().CheckCollision(ballRect, paddle2))
 	{
-		printf("Collision\n");
 		posX -= dirX / normalizedDirection * velocity * dt;
 		posY -= dirY / normalizedDirection * velocity * dt;
 
-		if (ballRect.x + BALL_RADIUS - 1 > paddle2.x || ballRect.x  + 1 < paddle1.x + paddle1.w)
+		if (ballRect.x + BALL_RADIUS - 8 > paddle2.x || ballRect.x  + 8 < paddle1.x + paddle1.w)
 		{
-			if (paddleMoving) velocity = 200 + 100;
+			printf("Collision side\n");
+
+			if (paddleMoving && velocity < 600) velocity = 200 + 200;
 			float reflectedAngele = ReflectedAngle(dirX / normalizedDirection, dirY / normalizedDirection);
 			dirX = -cos(reflectedAngele);
 			dirY = -sin(reflectedAngele);
-			posX += dirX * velocity * dt * 100;
-			posY += dirY * velocity * dt * 100;
+			if (paddleMoving)
+			{
+				posX += dirX * velocity * dt;
+				posY += dirY * velocity * dt + abs(dirY) / dirY * 10;
+			}
+			else
+			{
+				posX += dirX * velocity * dt;
+				posY += dirY * velocity * dt + abs(dirY) / dirY * 10;
+			}
 		}
 		else
 		{
+			printf("Collision front\n");
+
 			float reflectedAngele = ReflectedAngle(dirX / normalizedDirection, dirY / normalizedDirection);
 			dirX = - cos(reflectedAngele);
 			dirY = sin(reflectedAngele);
-			posX += dirX  * velocity * dt;
+			posX += dirX  * velocity * dt + abs(dirX)/dirX * 10;
 			posY += dirY  * velocity * dt;
 		}
 

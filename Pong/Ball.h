@@ -6,7 +6,7 @@ class Ball
 {
 public:
 	static const int BALL_RADIUS = 15;
-	static const int BALL_SPEED = 200;
+	static const int BALL_SPEED = 600;
 
 	Ball() = default;
 	Ball(int posX, int posY);
@@ -15,7 +15,7 @@ public:
 	void Render(SDL_Renderer* renderer);
 	void Update(SDL_Rect paddle1, SDL_Rect paddle2);
 	void HandleEvents(SDL_Event e);
-	void Close();
+	void Close(); 
 	void Reset();
 	float NormalizeDirection(float velocityX, float velocityY);
 	float ReflectedAngle(float directionX, float directionY);

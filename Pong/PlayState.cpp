@@ -5,7 +5,7 @@
 
 PlayState PlayState::instance;
 
-PlayState::PlayState() : ball(0, 0)
+PlayState::PlayState() : ball(0, 0), font(nullptr)
 {
 
 }
@@ -18,8 +18,8 @@ void PlayState::start(SDL_Renderer* renderer)
 	}
 
 	//TODO: Make it scale with screen size
-	paddle1 = { 10, 50, 50, 100 };
-	paddle2 = { ScreenSizeManager::getInstance().GetWidth() - 60, 250, 50, 100 };
+	paddle1 = { 10, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
+	paddle2 = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
 	ball = { ScreenSizeManager::getInstance().GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2};
 
 	ball.Start();
