@@ -24,11 +24,15 @@ public:
 	int GetY();
 	bool GetReset();
 
+	int GetRightScore();
+	int GetLeftScore();
+
 private:
 	float posX, posY;
 	int velocity;
 	float dirX, dirY;
 	bool reset, paddleMoving;
 	SDL_Rect ballRect;
+	int rightScore, leftScore;
 };
 

@@ -26,6 +26,8 @@ public:
 	//Render Text
 	bool LoadText(TTF_Font* font, std::string fontPath, std::string text, SDL_Color textColor, int fontSize, SDL_Renderer* renderer);
 
+	bool LoadTextWithoutOpeningFont(TTF_Font* font, std::string text, SDL_Color textColor, int fontSize, SDL_Renderer* renderer);
+
 	//Accessor functions
 	int GetWidth();
 	int GetHeight();

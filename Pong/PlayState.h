@@ -16,7 +16,6 @@ public:
 	void render(SDL_Renderer* renderer);
 	void handleInput(SDL_Event e);
 	void exit();
-
 	//Static accessor
 	static PlayState* getPlayState();
 
@@ -26,6 +25,7 @@ private:
 	Paddle paddle2;
 	Ball ball;
 	Texture playInstructions;
+	Texture rightNumber;
 	TTF_Font* font;
 };
 

@@ -98,39 +98,49 @@ bool Texture::LoadText(TTF_Font* font, std::string fontPath, std::string text, S
 	}
 	else
 	{
-		Free();
-
-		SDL_Texture* newTexture = NULL;
-
-		//Loaded texture
-		SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
-		if (textSurface == NULL)
+		if(!LoadTextWithoutOpeningFont(font, text, textColor, fontSize, renderer))
 		{
-			printf("Unable to render text surface! SDL_ttf Error: &s\n", TTF_GetError());
+			success = false;
+		}
+	}
+	return success;
+}
+
+bool Texture::LoadTextWithoutOpeningFont(TTF_Font* font, std::string text, SDL_Color textColor, int fontSize, SDL_Renderer* renderer)
+{
+	bool success = true;
+
+	SDL_Texture* newTexture = NULL;
+
+	//Loaded texture
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
+	if (textSurface == NULL)
+	{
+		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+		success = false;
+	}
+	else
+	{
+		newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		if (newTexture == NULL)
+		{
+			printf("Unable to create texture from text! SDL Error: %s\n", SDL_GetError());
 			success = false;
 		}
 		else
 		{
-			newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-			if (newTexture == NULL)
-			{
-				printf("Unable to create texture from text! SDL Error: %s\n", SDL_GetError());
-				success = false;
-			}
-			else
-			{
-				width = textSurface->w;
-				height = textSurface->h;
-			}
-
-			SDL_FreeSurface(textSurface);
+			width = textSurface->w;
+			height = textSurface->h;
 		}
 
-		if (success)
-		{
-			texture = newTexture;
-		}
+		SDL_FreeSurface(textSurface);
 	}
+
+	if (success)
+	{
+		texture = newTexture;
+	}
+
 	return success;
 }
 

@@ -15,6 +15,8 @@ Ball::Ball(int posX, int posY)
 	dirY = 0;
 	reset = true;
 	paddleMoving = false;
+	rightScore = 0;
+	leftScore = 0;
 }
 
 void Ball::Start()
@@ -44,7 +46,7 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 
 		if (ballRect.x + BALL_RADIUS - 8 > paddle2.x || ballRect.x  + 8 < paddle1.x + paddle1.w)
 		{
-			printf("Collision side\n");
+			//printf("Collision side\n");
 
 			if (paddleMoving && velocity < 600) velocity = 200 + 200;
 			float reflectedAngele = ReflectedAngle(dirX / normalizedDirection, dirY / normalizedDirection);
@@ -63,7 +65,7 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 		}
 		else
 		{
-			printf("Collision front\n");
+			//printf("Collision front\n");
 
 			float reflectedAngele = ReflectedAngle(dirX / normalizedDirection, dirY / normalizedDirection);
 			dirX = - cos(reflectedAngele);
@@ -100,10 +102,12 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 	if(posX < -1)
 	{
 		Reset();
+		rightScore++;
 	}
 	else if(posX > ScreenSizeManager::getInstance().GetWidth() + 1)
 	{
 		Reset();
+		leftScore++;
 	}
 }
 
@@ -196,4 +200,14 @@ int Ball::GetY()
 bool Ball::GetReset()
 {
 	return reset;
+}
+
+int Ball::GetRightScore()
+{
+	return rightScore;
+}
+
+int Ball::GetLeftScore()
+{
+	return leftScore;
 }
