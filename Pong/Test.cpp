@@ -69,38 +69,28 @@ public:
 //	return 0;
 //}
 
-class Base
-{
+class Entity {
 public:
-	virtual ~Base() {}
+	virtual void Update() {}
 };
 
-class Derived : public Base
+class Player:public Entity
 {
-public:
-	~Derived() {}
 };
 
-class Derived2 : public Base
+class Enemy: public Entity
 {
-public:
-	~Derived2() {}
 };
 
-//int main() {
+//int main()
+//{
+//	Player* player = new Player();
+//	Entity* actualPlayer = player;
 //
-//	Derived* d = new Derived();
-//	Base* b = d;
+//	Entity* actualEnemy = new Enemy();
 //
-//	Derived * d2 = dynamic_cast<Derived*>(d);
-//	if (d2 == NULL)
-//	{
-//		printf("NULL not possible\n");
-//	}
-//	else
-//	{
-//		printf("Success\n");
-//	}
+//	Player* playerCast1 = dynamic_cast<Player*>(actualEnemy); //This returns null
 //
-//	return 0;
+//	Player* playerCast2 = dynamic_cast<Player*>(actualPlayer); //This works
 //}
+
