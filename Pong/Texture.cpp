@@ -98,7 +98,7 @@ bool Texture::LoadText(TTF_Font* font, std::string fontPath, std::string text, S
 	}
 	else
 	{
-		if(!LoadTextWithoutOpeningFont(font, text, textColor, fontSize, renderer))
+		if(!LoadTextWithoutOpeningFont(font, text, textColor, renderer))
 		{
 			success = false;
 		}
@@ -106,7 +106,7 @@ bool Texture::LoadText(TTF_Font* font, std::string fontPath, std::string text, S
 	return success;
 }
 
-bool Texture::LoadTextWithoutOpeningFont(TTF_Font* font, std::string text, SDL_Color textColor, int fontSize, SDL_Renderer* renderer)
+bool Texture::LoadTextWithoutOpeningFont(TTF_Font* font, std::string text, SDL_Color textColor, SDL_Renderer* renderer)
 {
 	bool success = true;
 

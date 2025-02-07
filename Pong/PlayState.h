@@ -25,7 +25,8 @@ private:
 	Paddle paddle2;
 	Ball ball;
 	Texture playInstructions;
-	Texture rightNumber;
+	Texture rightNumber, leftNumber;
 	TTF_Font* font;
+	TTF_Font* font2;
 };
 
