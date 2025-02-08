@@ -6,7 +6,7 @@ class Paddle
 {
 public:
 
-	static const int PADDLE_VELOCITY = 300;
+	static const int PADDLE_VELOCITY = 100;
 
 	Paddle(int _posX = 0, int _posY = 0, int _width = 0, int _height = 0);
 	~Paddle();
@@ -15,11 +15,12 @@ public:
 	void Render(SDL_Renderer* renderer);
 	virtual void Update();
 	SDL_Rect GetRect();
-	int GetX();
-	int GetY();
+	float GetX();
+	float GetY();
 
 protected:
 	SDL_Rect paddleRect;
-	int posX, posY, velocity;
+	float posX, posY;
+	int velocity;
 };
 

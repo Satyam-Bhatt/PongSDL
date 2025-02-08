@@ -14,6 +14,6 @@ class AI_Paddle :
 
 
     private:
-
+        int direction;
 };
 

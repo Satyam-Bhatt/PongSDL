@@ -32,10 +32,10 @@ void PlayState::start(SDL_Renderer* renderer)
 
 	//TODO: Make it scale with screen size
 	paddle1 = { 10, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
-	paddle2 = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
+	//paddle2 = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
 	ball = { ScreenSizeManager::getInstance().GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2};
 
-	aiPaddle = { ScreenSizeManager::getInstance().GetWidth()/ 2, ScreenSizeManager::getInstance().GetHeight() / 2 + 100, 20, 20 };
+	aiPaddle = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
 
 	ball.Start();
 }
@@ -43,20 +43,20 @@ void PlayState::start(SDL_Renderer* renderer)
 void PlayState::update()
 {
 	paddle1.Update();
-	paddle2.Update();
+	//paddle2.Update();
 	aiPaddle.Update();
 
 	aiPaddle.GetBallDirection(&ball);
-	ball.Update(paddle1.GetRect(), paddle2.GetRect());
+	ball.Update(paddle1.GetRect(), aiPaddle.GetRect());
 }
 
 void PlayState::render(SDL_Renderer* renderer)
 {
 	paddle1.Render(renderer);
-	paddle2.Render(renderer);
+	//paddle2.Render(renderer);
+	aiPaddle.Render(renderer);
 	ball.Render(renderer);
 
-	aiPaddle.Render(renderer);
 
 	if (ball.GetReset())
 	{
@@ -107,6 +107,7 @@ void PlayState::exit()
 {
 	paddle1.Close();
 	paddle2.Close();
+	aiPaddle.Close();
 	playInstructions.Free();
 	rightNumber.Free();
 	leftNumber.Free();

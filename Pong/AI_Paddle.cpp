@@ -7,11 +7,13 @@ AI_Paddle::AI_Paddle(int _posX, int _posY, int _width, int _height)
 	posY = _posY;
 	paddleRect = { _posX, _posY, _width, _height };
 	velocity = PADDLE_VELOCITY;
+	direction = 0;
 }
 
 void AI_Paddle::Update()
 {
-	posY += velocity * Timer::getInstance().GetDeltaTime();
+	//printf("velocity %d\n", velocity);
+	posY += direction * velocity * Timer::getInstance().GetDeltaTime();
 
 	if (posY > ScreenSizeManager::getInstance().GetHeight() - paddleRect.h)
 	{
@@ -22,14 +24,31 @@ void AI_Paddle::Update()
 		posY = 0;
 	}
 
-	paddleRect = { posX, posY, paddleRect.w, paddleRect.h };
+	paddleRect = { (int)posX, (int)posY, paddleRect.w, paddleRect.h };
 }
 
 void AI_Paddle::GetBallDirection(Ball* ball)
 {
-	//printf("Ball dir y: %f\n", ball->GetDirY());
-    int ballDirY = std::abs(ball->GetDirY())/ball->GetDirY();
-	printf("Ball dir y: %d\n", ballDirY);
-	velocity *= ballDirY;
+	SDL_Rect ballRect = ball->GetBallRect();
+	int ballPosY = ballRect.y + ballRect.h / 2;
+	int paddlePosY = paddleRect.y + paddleRect.h / 2;
+
+	if (paddlePosY > ballPosY)
+	{
+		direction = -1;
+	}
+	else if (paddlePosY < ballPosY)
+	{
+		direction = 1;
+	}
+	else
+	{
+		direction = 0;
+	}
+
+	if (ball->GetReset())
+	{
+		direction = 0;
+	}
 }
 

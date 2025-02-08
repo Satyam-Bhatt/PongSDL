@@ -35,7 +35,7 @@ void Paddle::Update()
 		posY = 0;
 	}
 
-	paddleRect = { posX, posY, paddleRect.w, paddleRect.h };
+	paddleRect = { (int)posX, (int)posY, paddleRect.w, paddleRect.h };
 }
 
 void Paddle::HandleEvents(SDL_Event e)
@@ -77,12 +77,12 @@ SDL_Rect Paddle::GetRect()
 	return paddleRect;
 }
 
-int Paddle::GetX()
+float Paddle::GetX()
 {
 	return posX;
 }
 
-int Paddle::GetY()
+float Paddle::GetY()
 {
 	return posY;
 }
