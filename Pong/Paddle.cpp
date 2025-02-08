@@ -1,7 +1,6 @@
 #include "Paddle.h"
 #include <stdio.h>
 #include "Timer.h"
-#include "ScreenSizeManager.h"
 
 Paddle::Paddle(int _posX, int _posY, int _width, int _height)
 {

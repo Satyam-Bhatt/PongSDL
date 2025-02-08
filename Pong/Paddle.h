@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include "ScreenSizeManager.h"
 
 class Paddle
 {
@@ -12,12 +13,12 @@ public:
 	void Close();
 	void HandleEvents(SDL_Event e);
 	void Render(SDL_Renderer* renderer);
-	void Update();
+	virtual void Update();
 	SDL_Rect GetRect();
 	int GetX();
 	int GetY();
 
-private:
+protected:
 	SDL_Rect paddleRect;
 	int posX, posY, velocity;
 };

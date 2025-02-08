@@ -9,6 +9,7 @@ PlayState::PlayState()
 {
 	ball = { 0, 0 };
 	font = nullptr;
+	font2 = nullptr;
 }
 
 void PlayState::start(SDL_Renderer* renderer)
@@ -34,6 +35,8 @@ void PlayState::start(SDL_Renderer* renderer)
 	paddle2 = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
 	ball = { ScreenSizeManager::getInstance().GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2};
 
+	aiPaddle = { ScreenSizeManager::getInstance().GetWidth()/ 2, ScreenSizeManager::getInstance().GetHeight() / 2 + 100, 20, 20 };
+
 	ball.Start();
 }
 
@@ -41,7 +44,9 @@ void PlayState::update()
 {
 	paddle1.Update();
 	paddle2.Update();
+	aiPaddle.Update();
 
+	aiPaddle.GetBallDirection(&ball);
 	ball.Update(paddle1.GetRect(), paddle2.GetRect());
 }
 
@@ -50,6 +55,8 @@ void PlayState::render(SDL_Renderer* renderer)
 	paddle1.Render(renderer);
 	paddle2.Render(renderer);
 	ball.Render(renderer);
+
+	aiPaddle.Render(renderer);
 
 	if (ball.GetReset())
 	{
@@ -103,6 +110,8 @@ void PlayState::exit()
 	playInstructions.Free();
 	rightNumber.Free();
 	leftNumber.Free();
+	font = NULL;
+	font2 = NULL;
 }
 
 PlayState* PlayState::getPlayState()

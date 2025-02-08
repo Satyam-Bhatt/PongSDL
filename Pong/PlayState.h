@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "Paddle.h"
 #include "Ball.h"
+#include "AI_Paddle.h"
 
 class IntroState;
 extern void setNextState(GameState* state);
@@ -23,6 +24,7 @@ private:
 	static PlayState instance;
 	Paddle paddle1;
 	Paddle paddle2;
+	AI_Paddle aiPaddle;
 	Ball ball;
 	Texture playInstructions;
 	Texture rightNumber, leftNumber;

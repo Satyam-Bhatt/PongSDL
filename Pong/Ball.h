@@ -6,7 +6,7 @@ class Ball
 {
 public:
 	static const int BALL_RADIUS = 15;
-	static const int BALL_SPEED = 600;
+	static const int BALL_SPEED = 200;
 
 	Ball() = default;
 	Ball(int posX, int posY);
@@ -22,6 +22,7 @@ public:
 	SDL_Rect GetBallRect();
 	int GetX();
 	int GetY();
+	float GetDirY();
 	bool GetReset();
 
 	int GetRightScore();

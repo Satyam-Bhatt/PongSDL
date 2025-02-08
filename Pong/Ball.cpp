@@ -197,6 +197,11 @@ int Ball::GetY()
 	return posY;
 }
 
+float Ball::GetDirY()
+{
+	return dirY;
+}
+
 bool Ball::GetReset()
 {
 	return reset;
