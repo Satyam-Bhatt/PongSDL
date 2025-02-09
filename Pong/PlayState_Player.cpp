@@ -29,7 +29,7 @@ void PlayState_Player::start(SDL_Renderer* renderer)
 
 	//TODO: Make it scale with screen size
 	paddle1 = { 10, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
-	paddle2 = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
+	otherPaddle = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
 	ball = { ScreenSizeManager::getInstance().GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2 };
 
 	ball.Start();
@@ -38,15 +38,15 @@ void PlayState_Player::start(SDL_Renderer* renderer)
 void PlayState_Player::update()
 {
 	paddle1.Update();
-	paddle2.Update();
+	otherPaddle.Update();
 
-	ball.Update(paddle1.GetRect(), paddle2.GetRect());
+	ball.Update(paddle1.GetRect(), otherPaddle.GetRect());
 }
 
 void PlayState_Player::render(SDL_Renderer* renderer)
 {
 	paddle1.Render(renderer);
-	paddle2.Render(renderer);
+	otherPaddle.Render(renderer);
 	ball.Render(renderer);
 
 
@@ -72,7 +72,7 @@ void PlayState_Player::render(SDL_Renderer* renderer)
 void PlayState_Player::handleInput(SDL_Event e)
 {
 	paddle1.HandleEvents(e);
-	paddle2.HandleEvents(e);
+	otherPaddle.HandleEvents(e);
 	ball.HandleEvents(e);
 
 	if (e.type == SDL_WINDOWEVENT)
@@ -80,7 +80,7 @@ void PlayState_Player::handleInput(SDL_Event e)
 		switch (e.window.event)
 		{
 		case SDL_WINDOWEVENT_RESIZED:
-			paddle2 = { e.window.data1 - 60, 50, 50, 100 };
+			otherPaddle = { e.window.data1 - 60, 50, 50, 100 };
 		}
 	}
 
@@ -98,7 +98,6 @@ void PlayState_Player::handleInput(SDL_Event e)
 void PlayState_Player::exit()
 {
 	paddle1.Close();
-	paddle2.Close();
 	playInstructions.Free();
 	rightNumber.Free();
 	leftNumber.Free();

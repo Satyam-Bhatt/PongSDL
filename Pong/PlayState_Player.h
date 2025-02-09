@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "Paddle.h"
+#include "OtherPlayerPaddle.h"
 #include "Ball.h"
 
 extern void setNextState(GameState* state);
@@ -22,7 +23,7 @@ public:
 private:
 	static PlayState_Player instance;
 	Paddle paddle1;
-	Paddle paddle2;
+	OtherPlayerPaddle otherPaddle;
 	Ball ball;
 	Texture playInstructions;
 	Texture rightNumber, leftNumber;
