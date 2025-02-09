@@ -1,17 +1,15 @@
-#include "PlayState.h"
-#include "CollisionDetection.h"
-#include <stdio.h>
+#include "PlayState_Player.h"
 
-PlayState PlayState::instance;
+PlayState_Player PlayState_Player::instance;
 
-PlayState::PlayState()
+PlayState_Player::PlayState_Player()
 {
-	ball = { 0, 0 };
-	font = nullptr;
-	font2 = nullptr;
+    ball = { 0, 0 };
+    font = nullptr;
+    font2 = nullptr;
 }
 
-void PlayState::start(SDL_Renderer* renderer)
+void PlayState_Player::start(SDL_Renderer* renderer)
 {
 	font = TTF_OpenFont("Fonts/Star Shield.ttf", 32);
 	font2 = TTF_OpenFont("Fonts/Star Shield.ttf", 100);
@@ -31,29 +29,24 @@ void PlayState::start(SDL_Renderer* renderer)
 
 	//TODO: Make it scale with screen size
 	paddle1 = { 10, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
-	//paddle2 = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
-	ball = { ScreenSizeManager::getInstance().GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2};
-
-	aiPaddle = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
+	paddle2 = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
+	ball = { ScreenSizeManager::getInstance().GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2 };
 
 	ball.Start();
 }
 
-void PlayState::update()
+void PlayState_Player::update()
 {
 	paddle1.Update();
-	//paddle2.Update();
-	aiPaddle.Update();
+	paddle2.Update();
 
-	aiPaddle.GetBallDirection(&ball);
-	ball.Update(paddle1.GetRect(), aiPaddle.GetRect());
+	ball.Update(paddle1.GetRect(), paddle2.GetRect());
 }
 
-void PlayState::render(SDL_Renderer* renderer)
+void PlayState_Player::render(SDL_Renderer* renderer)
 {
 	paddle1.Render(renderer);
-	//paddle2.Render(renderer);
-	aiPaddle.Render(renderer);
+	paddle2.Render(renderer);
 	ball.Render(renderer);
 
 
@@ -76,7 +69,7 @@ void PlayState::render(SDL_Renderer* renderer)
 	leftNumber.Render(ScreenSizeManager::getInstance().GetWidth() / 2 - leftNumber.GetWidth() - 50, ScreenSizeManager::getInstance().GetHeight() / 2 - leftNumber.GetHeight() / 2, renderer);
 }
 
-void PlayState::handleInput(SDL_Event e)
+void PlayState_Player::handleInput(SDL_Event e)
 {
 	paddle1.HandleEvents(e);
 	paddle2.HandleEvents(e);
@@ -96,17 +89,16 @@ void PlayState::handleInput(SDL_Event e)
 		switch (e.key.keysym.sym)
 		{
 		case SDLK_r:
-			setNextState(PlayState::getPlayState());
+			setNextState(PlayState_Player::getPlayState_Player());
 			break;
 		}
 	}
 }
 
-void PlayState::exit()
+void PlayState_Player::exit()
 {
 	paddle1.Close();
 	paddle2.Close();
-	aiPaddle.Close();
 	playInstructions.Free();
 	rightNumber.Free();
 	leftNumber.Free();
@@ -114,7 +106,7 @@ void PlayState::exit()
 	font2 = NULL;
 }
 
-PlayState* PlayState::getPlayState()
+PlayState_Player* PlayState_Player::getPlayState_Player()
 {
-	return &instance;
+    return &instance;
 }

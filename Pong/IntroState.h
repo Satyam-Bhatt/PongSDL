@@ -3,18 +3,20 @@
 #include "Button.h"
 
 class PlayState;
+class PlayState_Player;
 
 extern void setNextState(GameState* state);
 
 class IntroState : public GameState
 {
 public:
-	void start(SDL_Renderer* renderer);
-	void update();
-	void render(SDL_Renderer* renderer);
-	void handleInput(SDL_Event e);
-	void exit();
+	void start(SDL_Renderer* renderer) override;
+	void update() override;
+	void render(SDL_Renderer* renderer) override;
+	void handleInput(SDL_Event e) override;
+	void exit() override;
 	void playButtonFunction();
+	void playPlayerButtonFunction();
 
 	//Static Accessor
 	static IntroState* getIntroState();
@@ -22,8 +24,12 @@ public:
 private:
 	static IntroState instance;
 	Texture testTex;
-	Button button = Button({0,0,0,0}, []() { printf("Button Pressed\n"); });
+	Button ai_Button;
 	Texture buttonText;
+
+	Button playerButton;
+	Texture playerButtonText;
+
 	TTF_Font* font = NULL;
 };
 

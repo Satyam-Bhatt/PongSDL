@@ -141,6 +141,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="PlayState_Player.cpp" />
     <ClCompile Include="ScreenSizeManager.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="IntroState.h" />
     <ClInclude Include="Paddle.h" />
     <ClInclude Include="PlayState.h" />
+    <ClInclude Include="PlayState_Player.h" />
     <ClInclude Include="ScreenSizeManager.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Timer.h" />

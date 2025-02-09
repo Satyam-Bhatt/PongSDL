@@ -11,7 +11,7 @@ public:
 	Paddle(int _posX = 0, int _posY = 0, int _width = 0, int _height = 0);
 	~Paddle();
 	void Close();
-	void HandleEvents(SDL_Event e);
+	virtual void HandleEvents(SDL_Event e);
 	void Render(SDL_Renderer* renderer);
 	virtual void Update();
 	SDL_Rect GetRect();
