@@ -37,6 +37,8 @@ void PlayState::start(SDL_Renderer* renderer)
 	aiPaddle = { ScreenSizeManager::getInstance().GetWidth() - 60, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
 
 	ball.Start();
+
+	escapeOverlay.Start();
 }
 
 void PlayState::update()
@@ -74,6 +76,8 @@ void PlayState::render(SDL_Renderer* renderer)
 
 	rightNumber.Render(ScreenSizeManager::getInstance().GetWidth() / 2 + rightNumber.GetWidth() + 50, ScreenSizeManager::getInstance().GetHeight() / 2 - rightNumber.GetHeight() / 2, renderer);
 	leftNumber.Render(ScreenSizeManager::getInstance().GetWidth() / 2 - leftNumber.GetWidth() - 50, ScreenSizeManager::getInstance().GetHeight() / 2 - leftNumber.GetHeight() / 2, renderer);
+
+	escapeOverlay.Render(renderer);
 }
 
 void PlayState::handleInput(SDL_Event e)
@@ -81,6 +85,7 @@ void PlayState::handleInput(SDL_Event e)
 	paddle1.HandleEvents(e);
 	paddle2.HandleEvents(e);
 	ball.HandleEvents(e);
+	escapeOverlay.HandleEvents(e);
 
 	if (e.type == SDL_WINDOWEVENT)
 	{

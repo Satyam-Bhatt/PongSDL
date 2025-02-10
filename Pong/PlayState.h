@@ -3,6 +3,7 @@
 #include "Paddle.h"
 #include "Ball.h"
 #include "AI_Paddle.h"
+#include "EscapeOverlay.h"
 
 extern void setNextState(GameState* state);
 
@@ -29,5 +30,6 @@ private:
 	Texture rightNumber, leftNumber;
 	TTF_Font* font;
 	TTF_Font* font2;
+	EscapeOverlay escapeOverlay;
 };
 
