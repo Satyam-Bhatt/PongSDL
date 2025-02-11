@@ -31,5 +31,6 @@ private:
 	TTF_Font* font;
 	TTF_Font* font2;
 	EscapeOverlay escapeOverlay;
+	bool isPaused = false;
 };
 

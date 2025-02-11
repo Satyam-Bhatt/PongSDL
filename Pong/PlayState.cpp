@@ -43,12 +43,15 @@ void PlayState::start(SDL_Renderer* renderer)
 
 void PlayState::update()
 {
-	paddle1.Update();
-	//paddle2.Update();
-	aiPaddle.Update();
+	if (!isPaused)
+	{
+		paddle1.Update();
+		//paddle2.Update();
+		aiPaddle.Update();
 
-	aiPaddle.GetBallDirection(&ball);
-	ball.Update(paddle1.GetRect(), aiPaddle.GetRect());
+		aiPaddle.GetBallDirection(&ball);
+		ball.Update(paddle1.GetRect(), aiPaddle.GetRect());
+	}
 }
 
 void PlayState::render(SDL_Renderer* renderer)
@@ -77,15 +80,19 @@ void PlayState::render(SDL_Renderer* renderer)
 	rightNumber.Render(ScreenSizeManager::getInstance().GetWidth() / 2 + rightNumber.GetWidth() + 50, ScreenSizeManager::getInstance().GetHeight() / 2 - rightNumber.GetHeight() / 2, renderer);
 	leftNumber.Render(ScreenSizeManager::getInstance().GetWidth() / 2 - leftNumber.GetWidth() - 50, ScreenSizeManager::getInstance().GetHeight() / 2 - leftNumber.GetHeight() / 2, renderer);
 
-	escapeOverlay.Render(renderer);
+	if(isPaused)escapeOverlay.Render(renderer);
 }
 
 void PlayState::handleInput(SDL_Event e)
 {
-	paddle1.HandleEvents(e);
-	paddle2.HandleEvents(e);
-	ball.HandleEvents(e);
-	escapeOverlay.HandleEvents(e);
+	if(isPaused)escapeOverlay.HandleEvents(e);
+
+	else
+	{
+		paddle1.HandleEvents(e);
+		paddle2.HandleEvents(e);
+		ball.HandleEvents(e);
+	}
 
 	if (e.type == SDL_WINDOWEVENT)
 	{
@@ -102,6 +109,10 @@ void PlayState::handleInput(SDL_Event e)
 		{
 		case SDLK_r:
 			setNextState(PlayState::getPlayState());
+			break;
+
+		case SDLK_ESCAPE:
+			isPaused = !isPaused;
 			break;
 		}
 	}
