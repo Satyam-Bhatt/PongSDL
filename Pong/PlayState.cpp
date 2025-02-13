@@ -38,7 +38,7 @@ void PlayState::start(SDL_Renderer* renderer)
 
 	ball.Start();
 
-	escapeOverlay.Start();
+	escapeOverlay.Start(renderer);
 }
 
 void PlayState::update()
@@ -90,7 +90,6 @@ void PlayState::handleInput(SDL_Event e)
 	else
 	{
 		paddle1.HandleEvents(e);
-		paddle2.HandleEvents(e);
 		ball.HandleEvents(e);
 	}
 
@@ -99,7 +98,7 @@ void PlayState::handleInput(SDL_Event e)
 		switch (e.window.event)
 		{
 		case SDL_WINDOWEVENT_RESIZED:
-			paddle2 = { e.window.data1 - 60, 50, 50, 100 };
+			aiPaddle = { e.window.data1 - 60, 50, 50, 100 };
 		}
 	}
 
@@ -121,13 +120,15 @@ void PlayState::handleInput(SDL_Event e)
 void PlayState::exit()
 {
 	paddle1.Close();
-	paddle2.Close();
 	aiPaddle.Close();
 	playInstructions.Free();
 	rightNumber.Free();
 	leftNumber.Free();
-	font = NULL;
-	font2 = NULL;
+	escapeOverlay.Exit();
+	TTF_CloseFont(font);
+	TTF_CloseFont(font2);
+	font = nullptr;
+	font2 = nullptr;
 }
 
 PlayState* PlayState::getPlayState()

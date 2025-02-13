@@ -33,6 +33,7 @@ void PlayState_Player::start(SDL_Renderer* renderer)
 	ball = { ScreenSizeManager::getInstance().GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2 };
 
 	ball.Start();
+	escapeOverlay.Start(renderer);
 }
 
 void PlayState_Player::update()
@@ -67,6 +68,7 @@ void PlayState_Player::render(SDL_Renderer* renderer)
 
 	rightNumber.Render(ScreenSizeManager::getInstance().GetWidth() / 2 + rightNumber.GetWidth() + 50, ScreenSizeManager::getInstance().GetHeight() / 2 - rightNumber.GetHeight() / 2, renderer);
 	leftNumber.Render(ScreenSizeManager::getInstance().GetWidth() / 2 - leftNumber.GetWidth() - 50, ScreenSizeManager::getInstance().GetHeight() / 2 - leftNumber.GetHeight() / 2, renderer);
+	if(isPaused) escapeOverlay.Render(renderer);
 }
 
 void PlayState_Player::handleInput(SDL_Event e)
@@ -74,6 +76,7 @@ void PlayState_Player::handleInput(SDL_Event e)
 	paddle1.HandleEvents(e);
 	otherPaddle.HandleEvents(e);
 	ball.HandleEvents(e);
+	if(isPaused)escapeOverlay.HandleEvents(e);
 
 	if (e.type == SDL_WINDOWEVENT)
 	{
@@ -91,6 +94,8 @@ void PlayState_Player::handleInput(SDL_Event e)
 		case SDLK_r:
 			setNextState(PlayState_Player::getPlayState_Player());
 			break;
+		case SDLK_ESCAPE:
+			isPaused = !isPaused;
 		}
 	}
 }
@@ -98,9 +103,12 @@ void PlayState_Player::handleInput(SDL_Event e)
 void PlayState_Player::exit()
 {
 	paddle1.Close();
+	otherPaddle.Close();
 	playInstructions.Free();
 	rightNumber.Free();
 	leftNumber.Free();
+	TTF_CloseFont(font);
+	TTF_CloseFont(font2);
 	font = NULL;
 	font2 = NULL;
 }

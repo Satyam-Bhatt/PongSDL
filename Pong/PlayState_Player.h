@@ -3,6 +3,7 @@
 #include "Paddle.h"
 #include "OtherPlayerPaddle.h"
 #include "Ball.h"
+#include "EscapeOverlay.h"
 
 extern void setNextState(GameState* state);
 
@@ -27,6 +28,8 @@ private:
 	Ball ball;
 	Texture playInstructions;
 	Texture rightNumber, leftNumber;
+	EscapeOverlay escapeOverlay;
+	bool isPaused = false;
 	TTF_Font* font;
 	TTF_Font* font2;
 };

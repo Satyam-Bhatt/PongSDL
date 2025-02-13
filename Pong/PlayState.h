@@ -23,7 +23,6 @@ public:
 private:
 	static PlayState instance;
 	Paddle paddle1;
-	Paddle paddle2;
 	AI_Paddle aiPaddle;
 	Ball ball;
 	Texture playInstructions;

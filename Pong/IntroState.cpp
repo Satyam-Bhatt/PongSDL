@@ -36,11 +36,11 @@ void IntroState::render(SDL_Renderer* renderer)
 
 	SDL_Rect button_Rect = {ScreenSizeManager::getInstance().GetWidth() / 2 - 200 / 2, ScreenSizeManager::getInstance().GetHeight() / 2 - 100 / 2, 200, 100};
 	ai_Button.Render(button_Rect ,renderer);
-	buttonText.Render(ScreenSizeManager::getInstance().GetWidth() / 2 - buttonText.GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2 - buttonText.GetHeight() / 2, renderer);
+	buttonText.Render(button_Rect.x + button_Rect.w / 2 - buttonText.GetWidth() / 2, button_Rect.y + button_Rect.h / 2 - buttonText.GetHeight() / 2, renderer);
 
 	SDL_Rect button_Rect2 = { ScreenSizeManager::getInstance().GetWidth() / 2 - 200 / 2, ScreenSizeManager::getInstance().GetHeight() / 2 + 200 / 2, 200, 100 };
 	playerButton.Render(button_Rect2, renderer);
-	playerButtonText.Render(ScreenSizeManager::getInstance().GetWidth() / 2 - playerButtonText.GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2 + playerButtonText.GetHeight() / 2 + 100, renderer);
+	playerButtonText.Render(button_Rect2.x + button_Rect2.w / 2 - playerButtonText.GetWidth() / 2, button_Rect2.y + button_Rect2.h / 2 - playerButtonText.GetHeight() / 2, renderer);
 }
 
 void IntroState::handleInput(SDL_Event e)
