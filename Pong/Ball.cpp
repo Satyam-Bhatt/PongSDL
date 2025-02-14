@@ -97,6 +97,22 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 		posY += dirY * velocity * dt;
 	}
 
+	//Check if the ball is inside the paddle
+	if (CollisionDetection::GetInstance().CheckCollision(ballRect, paddle1) || CollisionDetection::GetInstance().CheckCollision(ballRect, paddle2))
+	{
+		if (paddle1.x + paddle1.w > posX && paddle1.y + paddle1.h > posY && paddle1.y < posY && paddle1.x < posX)
+		{
+			float offset = (paddle1.x + paddle1.w) - posX;
+			posX += offset + 10;
+		}
+
+		if(paddle2.x + paddle2.w > posX && paddle2.y + paddle2.h > posY && paddle2.y < posY && paddle2.x < posX)
+		{
+			float offset = posX - static_cast<float>(paddle2.x);
+			posX = posX - ( offset + 10);
+		}
+	}
+
 	ballRect = { (int)posX, (int)posY, BALL_RADIUS, BALL_RADIUS };
 
 	if(posX < -1)

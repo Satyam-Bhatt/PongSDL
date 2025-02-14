@@ -25,11 +25,12 @@ private:
 	Paddle paddle1;
 	AI_Paddle aiPaddle;
 	Ball ball;
-	Texture playInstructions;
+	Texture playInstructions, restartInstructions;
 	Texture rightNumber, leftNumber;
 	TTF_Font* font;
 	TTF_Font* font2;
 	EscapeOverlay escapeOverlay;
 	bool isPaused = false;
+	bool Approximate(float a, float b, float epsilon);
 };
 

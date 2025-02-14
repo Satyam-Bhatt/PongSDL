@@ -6,7 +6,7 @@ class Ball
 {
 public:
 	static const int BALL_RADIUS = 15;
-	static const int BALL_SPEED = 200;
+	static const int BALL_SPEED = 300;
 
 	Ball() = default;
 	Ball(int posX, int posY);
