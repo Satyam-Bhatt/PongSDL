@@ -15,6 +15,20 @@ Paddle::~Paddle()
 	Close();
 }
 
+void Paddle::Start()
+{
+	Uint32 flags = SDL_GetWindowFlags(window);
+
+	if (flags & SDL_WINDOW_MAXIMIZED)
+	{
+		additionalSpeed = 500;
+	}
+	else
+	{
+		additionalSpeed = 0;
+	}
+}
+
 void Paddle::Close()
 {
 	posX = 0;
@@ -45,10 +59,10 @@ void Paddle::HandleEvents(SDL_Event e)
 		switch(e.key.keysym.sym)
 		{
 		case SDLK_UP:
-			velocity = -PADDLE_VELOCITY;
+			velocity = -(PADDLE_VELOCITY + additionalSpeed);
 			break;
 		case SDLK_DOWN:
-			velocity = PADDLE_VELOCITY;
+			velocity = PADDLE_VELOCITY + additionalSpeed;
 			break;
 		}
 	}
@@ -61,6 +75,20 @@ void Paddle::HandleEvents(SDL_Event e)
 			break;
 		case SDLK_DOWN:
 			velocity = 0;
+			break;
+		}
+	}
+
+	if (e.type == SDL_WINDOWEVENT)
+	{
+		switch (e.window.event)
+		{
+		case SDL_WINDOWEVENT_MAXIMIZED:
+			additionalSpeed = 500;
+			break;
+
+		case SDL_WINDOWEVENT_RESIZED:
+			additionalSpeed = 0;
 			break;
 		}
 	}

@@ -7,6 +7,7 @@
 
 extern void setNextState(GameState* state);
 
+//AI Level
 class PlayState :
 	public GameState
 {
@@ -25,6 +26,7 @@ private:
 	Paddle paddle1;
 	AI_Paddle aiPaddle;
 	Ball ball;
+	Texture background;
 	Texture playInstructions, restartInstructions;
 	Texture rightNumber, leftNumber;
 	TTF_Font* font;
@@ -32,5 +34,6 @@ private:
 	EscapeOverlay escapeOverlay;
 	bool isPaused = false;
 	bool Approximate(float a, float b, float epsilon);
+	Mix_Music* music;
 };
 

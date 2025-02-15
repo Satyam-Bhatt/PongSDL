@@ -17,7 +17,6 @@ public:
 	void exit() override;
 	void playButtonFunction();
 	void playPlayerButtonFunction();
-
 	//Static Accessor
 	static IntroState* getIntroState();
 
@@ -31,5 +30,8 @@ private:
 	Texture playerButtonText;
 
 	TTF_Font* font = NULL;
+
+	Mix_Music* music = NULL;
+	Mix_Chunk* sfx = NULL;
 };
 

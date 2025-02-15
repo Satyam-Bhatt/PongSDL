@@ -7,6 +7,7 @@ PlayState_Player::PlayState_Player()
     ball = { 0, 0 };
     font = nullptr;
     font2 = nullptr;
+	music = NULL;
 }
 
 void PlayState_Player::start(SDL_Renderer* renderer)
@@ -26,6 +27,15 @@ void PlayState_Player::start(SDL_Renderer* renderer)
 	{
 		printf("Failed to load leftNumber\n");
 	}
+	if (!restartInstructions.LoadText(font, "Fonts/Star Shield.ttf", "Press R to Restart", { 255, 255, 255 }, 32, renderer))
+	{
+		printf("Failed to load restart instructions!\n");
+	}
+	if(!Music::GetInstance().LoadMusic("Sounds/PlayerMusic.mp3", music))
+	{
+		printf("Failed to load music!\n");
+	}
+	Mix_PlayMusic(music, -1);
 
 	//TODO: Make it scale with screen size
 	paddle1 = { 10, ScreenSizeManager::getInstance().GetHeight() / 2 - 50, 50, 100 };
@@ -34,6 +44,8 @@ void PlayState_Player::start(SDL_Renderer* renderer)
 
 	ball.Start();
 	escapeOverlay.Start(renderer);
+	paddle1.Start();
+	otherPaddle.Start();
 }
 
 void PlayState_Player::update()
@@ -48,7 +60,6 @@ void PlayState_Player::render(SDL_Renderer* renderer)
 {
 	paddle1.Render(renderer);
 	otherPaddle.Render(renderer);
-	ball.Render(renderer);
 
 
 	if (ball.GetReset())
@@ -68,6 +79,9 @@ void PlayState_Player::render(SDL_Renderer* renderer)
 
 	rightNumber.Render(ScreenSizeManager::getInstance().GetWidth() / 2 + rightNumber.GetWidth() + 50, ScreenSizeManager::getInstance().GetHeight() / 2 - rightNumber.GetHeight() / 2, renderer);
 	leftNumber.Render(ScreenSizeManager::getInstance().GetWidth() / 2 - leftNumber.GetWidth() - 50, ScreenSizeManager::getInstance().GetHeight() / 2 - leftNumber.GetHeight() / 2, renderer);
+	restartInstructions.Render(ScreenSizeManager::getInstance().GetWidth() / 2 - restartInstructions.GetWidth() / 2, ScreenSizeManager::getInstance().GetHeight() / 2 + 100, renderer);
+	ball.Render(renderer);
+
 	if(isPaused) escapeOverlay.Render(renderer);
 }
 
@@ -111,6 +125,9 @@ void PlayState_Player::exit()
 	TTF_CloseFont(font2);
 	font = NULL;
 	font2 = NULL;
+	Mix_HaltMusic();
+	Mix_FreeMusic(music);
+	music = NULL;
 }
 
 PlayState_Player* PlayState_Player::getPlayState_Player()

@@ -140,6 +140,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="IntroState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Music.cpp" />
     <ClCompile Include="OtherPlayerPaddle.cpp" />
     <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="PlayState.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="EscapeOverlay.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="IntroState.h" />
+    <ClInclude Include="Music.h" />
     <ClInclude Include="OtherPlayerPaddle.h" />
     <ClInclude Include="Paddle.h" />
     <ClInclude Include="PlayState.h" />

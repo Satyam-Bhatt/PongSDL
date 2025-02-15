@@ -6,7 +6,7 @@ IntroState IntroState::instance;
 
 void IntroState::start(SDL_Renderer* renderer)
 {
-	if (!testTex.LoadFromFile("Images/texture.png", renderer))
+	if (!testTex.LoadFromFile("Images/bg_main.jpg", renderer))
 	{
 		printf("Failed to load texture!\n");
 	}
@@ -23,6 +23,13 @@ void IntroState::start(SDL_Renderer* renderer)
 	{
 		printf("Failed to load texture!\n");
 	}
+
+	if(!Music::GetInstance().LoadMusic("Sounds/beat.mp3", music))
+	{
+		printf("Failed to load music!\n");
+	}
+
+	Mix_PlayMusic(music, -1);
 }
 
 void IntroState::update()
@@ -55,6 +62,10 @@ void IntroState::exit()
 	buttonText.Free();
 	TTF_CloseFont(font);
 	font = NULL;
+
+	Mix_HaltMusic();
+	Mix_FreeMusic(music);
+	music = NULL;
 }
 
 IntroState* IntroState::getIntroState()

@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "CommonVariables.h"
 #include <functional>
+#include "Music.h"
 
 class GameState
 {

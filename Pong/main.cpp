@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include "GameState.h"
 #include "IntroState.h"
 #include "CommonVariables.h"
@@ -19,7 +20,7 @@ bool init()
 	bool success = true;
 
 	//Initialize SDL
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
 		success = false;
@@ -67,6 +68,13 @@ bool init()
 					printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
 					success = false;
 				}
+
+				//Initialize SDL_mixer
+				if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+				{
+					printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+					success = false;
+				}
 			}
 		}
 	}
@@ -85,6 +93,7 @@ void close()
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
+	Mix_Quit();
 }
 void setNextState(GameState* state)
 {

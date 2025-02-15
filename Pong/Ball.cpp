@@ -17,6 +17,9 @@ Ball::Ball(int posX, int posY)
 	paddleMoving = false;
 	rightScore = 0;
 	leftScore = 0;
+	collisionSound = NULL;
+	failSound = NULL;
+	additionalSpeed = 0;
 }
 
 void Ball::Start()
@@ -27,7 +30,25 @@ void Ball::Start()
 	dirX = 0;
 	dirY = 0;
 
-	printf("posX: %f || posY: %f", posX, posY);
+	if (!Music::GetInstance().LoadSFX("Sounds/high.wav", collisionSound))
+	{
+		printf("Failed to load music!\n");
+	}
+	if(!Music::GetInstance().LoadSFX("Sounds/fail.mp3", failSound))
+	{
+		printf("Failed to load music!\n");
+	}
+
+	Uint32 flags = SDL_GetWindowFlags(window);
+
+	if (flags & SDL_WINDOW_MAXIMIZED)
+	{
+		additionalSpeed = 500;
+	}
+	else
+	{
+		additionalSpeed = 0;
+	}
 }
 
 void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
@@ -36,31 +57,31 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 
 	float dt = Timer::getInstance().GetDeltaTime();
 	float normalizedDirection = NormalizeDirection(dirX, dirY);
-	posX += dirX/normalizedDirection * velocity * dt;
-	posY += dirY/normalizedDirection * velocity * dt;
+	posX += dirX/normalizedDirection * (velocity + additionalSpeed) * dt;
+	posY += dirY/normalizedDirection * (velocity + additionalSpeed) * dt;
 
 	if (CollisionDetection::GetInstance().CheckCollision(ballRect, paddle1) || CollisionDetection::GetInstance().CheckCollision(ballRect, paddle2))
 	{
-		posX -= dirX / normalizedDirection * velocity * dt;
-		posY -= dirY / normalizedDirection * velocity * dt;
+		posX -= dirX / normalizedDirection * (velocity + additionalSpeed) * dt;
+		posY -= dirY / normalizedDirection * (velocity + additionalSpeed) * dt;
 
 		if (ballRect.x + BALL_RADIUS - 8 > paddle2.x || ballRect.x  + 8 < paddle1.x + paddle1.w)
 		{
 			//printf("Collision side\n");
 
-			if (paddleMoving && velocity < 600) velocity = 200 + 200;
+			if (paddleMoving && velocity < 800) velocity = 200 + 200;
 			float reflectedAngele = ReflectedAngle(dirX / normalizedDirection, dirY / normalizedDirection);
 			dirX = -cos(reflectedAngele);
 			dirY = -sin(reflectedAngele);
 			if (paddleMoving)
 			{
-				posX += dirX * velocity * dt;
-				posY += dirY * velocity * dt + abs(dirY) / dirY * 10;
+				posX += dirX * (velocity + additionalSpeed) * dt;
+				posY += dirY * (velocity + additionalSpeed) * dt + abs(dirY) / dirY * 10;
 			}
 			else
 			{
-				posX += dirX * velocity * dt;
-				posY += dirY * velocity * dt + abs(dirY) / dirY * 10;
+				posX += dirX * (velocity + additionalSpeed) * dt;
+				posY += dirY * (velocity + additionalSpeed) * dt + abs(dirY) / dirY * 10;
 			}
 		}
 		else
@@ -70,9 +91,11 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 			float reflectedAngele = ReflectedAngle(dirX / normalizedDirection, dirY / normalizedDirection);
 			dirX = - cos(reflectedAngele);
 			dirY = sin(reflectedAngele);
-			posX += dirX  * velocity * dt + abs(dirX)/dirX * 10;
-			posY += dirY  * velocity * dt;
+			posX += dirX  * (velocity + additionalSpeed) * dt + abs(dirX)/dirX * 10;
+			posY += dirY  * (velocity + additionalSpeed) * dt;
 		}
+
+		Mix_PlayChannel(-1, collisionSound, 0);
 
 	}
 
@@ -83,8 +106,11 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 		float reflectedAngele = ReflectedAngle(dirX / normalizedDirection, dirY / normalizedDirection);
 		dirX = cos(reflectedAngele);
 		dirY = -sin(reflectedAngele);
-		posX += dirX * velocity * dt;
-		posY += dirY * velocity * dt;
+		posX += dirX * (velocity + additionalSpeed) * dt;
+		posY += dirY * (velocity + additionalSpeed) * dt;
+
+		Mix_PlayChannel(-1, collisionSound, 0);
+
 	}
 	else if(posY > ScreenSizeManager::getInstance().GetHeight() - BALL_RADIUS)
 	{
@@ -93,8 +119,11 @@ void Ball::Update(SDL_Rect paddle1, SDL_Rect paddle2)
 		float reflectedAngele = ReflectedAngle(dirX / normalizedDirection, dirY / normalizedDirection);
 		dirX = cos(reflectedAngele);
 		dirY = -sin(reflectedAngele);
-		posX += dirX * velocity * dt;
-		posY += dirY * velocity * dt;
+		posX += dirX * (velocity + additionalSpeed) * dt;
+		posY += dirY * (velocity + additionalSpeed) * dt;
+
+		Mix_PlayChannel(-1, collisionSound, 0);
+
 	}
 
 	//Check if the ball is inside the paddle
@@ -157,13 +186,35 @@ void Ball::HandleEvents(SDL_Event e)
 		case SDLK_DOWN:
 			paddleMoving = true;
 			break;
+
+		case SDLK_w:
+			paddleMoving = true;
+			break;
+
+		case SDLK_s:
+			paddleMoving = true;
+			break;
 		}
 	}
 	if (e.type == SDL_KEYUP)
 	{
-		if(e.key.keysym.sym == SDLK_UP || e.key.keysym.sym == SDLK_DOWN)
+		if(e.key.keysym.sym == SDLK_UP || e.key.keysym.sym == SDLK_DOWN || e.key.keysym.sym == SDLK_w || e.key.keysym.sym == SDLK_s)
 		{
 			paddleMoving = false;
+		}
+	}
+
+	if (e.type == SDL_WINDOWEVENT)
+	{
+		switch (e.window.event)
+		{
+		case SDL_WINDOWEVENT_MAXIMIZED:
+			additionalSpeed = 500;
+			break;
+
+		case SDL_WINDOWEVENT_RESTORED:
+			additionalSpeed = 0;
+			break;
 		}
 	}
 
@@ -174,6 +225,12 @@ void Ball::Close()
 	posX = 0;
 	posY = 0;
 	ballRect = { 0, 0, 0, 0 };
+
+	Mix_FreeChunk(collisionSound);
+	collisionSound = NULL;
+
+	Mix_FreeChunk(failSound);
+	failSound = NULL;
 }
 
 void Ball::Reset()
@@ -184,6 +241,8 @@ void Ball::Reset()
 	posX = ScreenSizeManager::getInstance().GetWidth() / 2;
 	posY = ScreenSizeManager::getInstance().GetHeight() / 2;
 	ballRect = {(int)posX, (int)posY, BALL_RADIUS, BALL_RADIUS };
+
+	Mix_PlayChannel(-1, failSound, 0);
 }
 
 float Ball::NormalizeDirection(float directionX, float directionY)

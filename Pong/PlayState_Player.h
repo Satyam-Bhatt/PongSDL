@@ -26,11 +26,12 @@ private:
 	Paddle paddle1;
 	OtherPlayerPaddle otherPaddle;
 	Ball ball;
-	Texture playInstructions;
+	Texture playInstructions, restartInstructions;
 	Texture rightNumber, leftNumber;
 	EscapeOverlay escapeOverlay;
 	bool isPaused = false;
 	TTF_Font* font;
 	TTF_Font* font2;
+	Mix_Music* music;
 };
 

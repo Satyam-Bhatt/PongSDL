@@ -1,6 +1,9 @@
 #pragma once
 #include <SDL.h>
 #include "Timer.h"
+#include "Music.h"
+
+extern SDL_Window* window;
 
 class Ball
 {
@@ -30,10 +33,12 @@ public:
 
 private:
 	float posX, posY;
-	int velocity;
+	int velocity, additionalSpeed;
 	float dirX, dirY;
 	bool reset, paddleMoving;
 	SDL_Rect ballRect;
 	int rightScore, leftScore;
+	Mix_Chunk* collisionSound;
+	Mix_Chunk* failSound;
 };
 
