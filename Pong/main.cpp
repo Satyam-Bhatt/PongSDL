@@ -110,6 +110,7 @@ void changeState()
 	}
 }
 
+//#pragma comment(linker, "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
 int main(int argc, char* args[])
 {
 	if(!init())

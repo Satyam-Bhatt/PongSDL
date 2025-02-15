@@ -15,6 +15,10 @@ void PlayState_Player::start(SDL_Renderer* renderer)
 	font = TTF_OpenFont("Fonts/Star Shield.ttf", 32);
 	font2 = TTF_OpenFont("Fonts/Star Shield.ttf", 100);
 
+	if (!backgroundTexture.LoadFromFile("Images/bg_beige.jpg", renderer))
+	{
+		printf("Failed to load texture!\n");
+	}
 	if (!playInstructions.LoadText(font, "Fonts/Star Shield.ttf", "Press Space to Start", { 255, 255, 255 }, 32, renderer))
 	{
 		printf("Failed to load play instructions!\n");
@@ -58,6 +62,7 @@ void PlayState_Player::update()
 
 void PlayState_Player::render(SDL_Renderer* renderer)
 {
+	backgroundTexture.RenderFullScreen(renderer);
 	paddle1.Render(renderer);
 	otherPaddle.Render(renderer);
 
@@ -116,6 +121,7 @@ void PlayState_Player::handleInput(SDL_Event e)
 
 void PlayState_Player::exit()
 {
+	isPaused = false;
 	paddle1.Close();
 	otherPaddle.Close();
 	playInstructions.Free();
@@ -128,6 +134,7 @@ void PlayState_Player::exit()
 	Mix_HaltMusic();
 	Mix_FreeMusic(music);
 	music = NULL;
+	backgroundTexture.Free();
 }
 
 PlayState_Player* PlayState_Player::getPlayState_Player()

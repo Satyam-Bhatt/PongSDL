@@ -26,6 +26,7 @@ private:
 	Paddle paddle1;
 	OtherPlayerPaddle otherPaddle;
 	Ball ball;
+	Texture backgroundTexture;
 	Texture playInstructions, restartInstructions;
 	Texture rightNumber, leftNumber;
 	EscapeOverlay escapeOverlay;

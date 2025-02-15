@@ -2,12 +2,15 @@
 #include <stdio.h>
 #include "Timer.h"
 
+int Paddle::aiSpeedIncrease = 0;
+
 Paddle::Paddle(int _posX, int _posY, int _width, int _height)
 {
 	posX = _posX;
 	posY = _posY;
 	paddleRect = {_posX, _posY, _width, _height};
 	velocity = 0;
+	aiSpeedIncrease = 0;
 }
 
 Paddle::~Paddle()
@@ -22,10 +25,12 @@ void Paddle::Start()
 	if (flags & SDL_WINDOW_MAXIMIZED)
 	{
 		additionalSpeed = 500;
+		aiSpeedIncrease = 500;
 	}
 	else
 	{
 		additionalSpeed = 0;
+		aiSpeedIncrease = 0;
 	}
 }
 
@@ -85,10 +90,12 @@ void Paddle::HandleEvents(SDL_Event e)
 		{
 		case SDL_WINDOWEVENT_MAXIMIZED:
 			additionalSpeed = 500;
+			aiSpeedIncrease = 500;
 			break;
 
 		case SDL_WINDOWEVENT_RESIZED:
 			additionalSpeed = 0;
+			aiSpeedIncrease = 0;
 			break;
 		}
 	}

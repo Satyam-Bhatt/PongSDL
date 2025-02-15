@@ -135,6 +135,7 @@ void PlayState::handleInput(SDL_Event e)
 
 void PlayState::exit()
 {
+	isPaused = false;
 	paddle1.Close();
 	aiPaddle.Close();
 	playInstructions.Free();

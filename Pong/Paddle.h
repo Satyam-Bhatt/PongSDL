@@ -26,5 +26,6 @@ protected:
 	float posX, posY;
 	int velocity;
 	int additionalSpeed = 0;
+	static int aiSpeedIncrease;
 };
 

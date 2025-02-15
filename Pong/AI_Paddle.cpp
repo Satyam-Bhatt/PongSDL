@@ -12,8 +12,7 @@ AI_Paddle::AI_Paddle(int _posX, int _posY, int _width, int _height)
 
 void AI_Paddle::Update()
 {
-	//printf("velocity %d\n", velocity);
-	posY += direction * velocity * Timer::getInstance().GetDeltaTime();
+	posY += direction * (velocity + aiSpeedIncrease) * Timer::getInstance().GetDeltaTime();
 
 	if (posY > ScreenSizeManager::getInstance().GetHeight() - paddleRect.h)
 	{
