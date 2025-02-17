@@ -74,6 +74,10 @@
     <IncludePath>C:\SDLStuff\SDL2_mixer-2.8.0\include;C:\SDLStuff\SDL2_image-2.8.2\include;C:\SDLStuff\SDL2_ttf-2.22.0\include;C:\SDLStuff\SDL2-2.30.8\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\SDLStuff\SDL2_image-2.8.2\lib\x64;C:\SDLStuff\SDL2_mixer-2.8.0\lib\x64;C:\SDLStuff\SDL2_ttf-2.22.0\lib\x64;C:\SDLStuff\SDL2-2.30.8\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\SDLStuff\SDL2_mixer-2.8.0\include;C:\SDLStuff\SDL2_image-2.8.2\include;C:\SDLStuff\SDL2_ttf-2.22.0\include;C:\SDLStuff\SDL2-2.30.8\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\SDLStuff\SDL2_image-2.8.2\lib\x64;C:\SDLStuff\SDL2_mixer-2.8.0\lib\x64;C:\SDLStuff\SDL2_ttf-2.22.0\lib\x64;C:\SDLStuff\SDL2-2.30.8\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -110,7 +114,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
@@ -125,10 +129,11 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
