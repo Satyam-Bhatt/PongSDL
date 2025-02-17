@@ -9,7 +9,7 @@ PlayState::PlayState()
 	ball = { 0, 0 };
 	font = nullptr;
 	font2 = nullptr;
-	music = NULL;
+	music = nullptr;
 }
 
 void PlayState::start(SDL_Renderer* renderer)
